@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "bus-routes"
+version = "0.1.0"
+description = "Tlg bot"
+authors = ["la-strole <sovaleto48@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "bus_routes"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
