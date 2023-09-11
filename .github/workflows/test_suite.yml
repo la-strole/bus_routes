@@ -1,0 +1,44 @@
+name: test suite
+
+on:
+  pull_request:
+    types: ["opened"]
+    branches: [ "main" ]
+    paths:
+      - '**.py'
+      - 'src/**'
+
+jobs:
+  TestSuitePR:
+    runs-on: ubuntu-latest
+    steps:
+      
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: TruffleHog Check for secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          # Repository path
+          path: ./
+          # Start scanning from here (usually main branch).
+          base: ${{ github.event.repository.default_branch }}
+          extra_args: --debug --only-verified
+
+      - name: Set up Python 
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+          sudo apt-get update
+          sudo apt-get install -y ca-certificates curl
+          curl -sSL https://install.python-poetry.org | python3 -
+          ~/.local/share/pypoetry/venv/bin/poetry install --without dev --no-root
+      - name: Analysing the code with pylint
+        run: |
+          ~/.local/share/pypoetry/venv/bin/poetry run pylint $(git ls-files '*.py')
+
