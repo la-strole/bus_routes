@@ -9,6 +9,7 @@ packages = [{include = "bus_routes"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+pytelegrambotapi = "^4.13.0"
 
 
 [build-system]
