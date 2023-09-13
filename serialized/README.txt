@@ -15,8 +15,8 @@ station.json structure: {
   }
   
 
-Here - bus_number - Visit station on forward and baskward
-	bus_number_r - Visit station only on reverse route
-	bus_number_f - Visit station only on straight route
+Here - bus_number - Visit the station both in the forward and backward directions.
+	bus_number_r - Visit the station exclusively on the reverse route.
+	bus_number_f - Visit the station exclusively on the straight route.
 	
 

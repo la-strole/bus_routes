@@ -10,12 +10,12 @@ import serialization
 
 
 def get_route_image(caption: str, reverse_flag: bool) -> Optional[Dict]:
-    # Get current route type
+    # Retrieve the current route type.
     if "Обратный" in caption or "обратный" in caption:
         current_route_type = "reverse"
     else:
         current_route_type = "straight"
-    # Get bus label
+    # Obtain the bus label.
     bus_label = caption.split(":")[1]
     bus_key = serialization.convert_label_to_bus_key(bus_label)
 
@@ -44,13 +44,13 @@ def get_route_image(caption: str, reverse_flag: bool) -> Optional[Dict]:
 
 
 def get_bus_stations(caption: str, reverse_flag: bool) -> Optional[Dict]:
-    # Get current route type
+    # Retrieve the current route type.
     if "Обратный" in caption or "обратный" in caption:
         current_route_type = "reverse"
     else:
         current_route_type = "straight"
 
-    # Get bus label
+    # Obtain the bus label.
     bus_label = caption.split(":")[1]
     bus_key = serialization.convert_label_to_bus_key(bus_label)
 
@@ -84,13 +84,13 @@ def get_bus_stations(caption: str, reverse_flag: bool) -> Optional[Dict]:
 def callback_handler(bot: TeleBot):
     @bot.callback_query_handler(func=lambda call: True)
     def handle_callback_query(call):
-        # Get the callback data from the button that was clicked
+        # Retrieve the callback data from the button that was clicked.
         callback_data: str = call.data
 
         # Perform actions based on the callback data
 
-        if callback_data == "1":  # Show stations in bus route
-            # Get caption
+        if callback_data == "1":  # Show the stations on the bus route.
+            # Retrieve the caption.
             caption = call.message.caption
             data = get_bus_stations(caption, reverse_flag=False)
             if data:
@@ -106,8 +106,8 @@ def callback_handler(bot: TeleBot):
                     call.message.chat.id, "Не удалось найти остановки для маршрута."
                 )
 
-        elif callback_data == "2":  # Show reverse route image
-            # Get caption
+        elif callback_data == "2":  # Display the image of the reverse route.
+            # Retrieve the caption.
             caption = call.message.caption
             data = get_route_image(caption, reverse_flag=True)
             if data:
@@ -123,13 +123,13 @@ def callback_handler(bot: TeleBot):
                     call.message.chat.id, "Не удалось найти обратный маршрут."
                 )
 
-        elif callback_data == "3":  # Show reverse route bus stations
-            # Edit text message with reverse bus stations
-            # Get route type
+        elif callback_data == "3":  # Display the bus stations on the reverse route.
+            # Modify the text message with information about the reverse bus stations.
+            # Retrieve the current route type.
             caption = call.message.text.split("\n")[0]
             data = get_bus_stations(caption, reverse_flag=True)
             if data:
-                # Replace text of message with new text
+                # Substitute the message text with new content.
                 bot.edit_message_text(
                     text=data["text"],
                     chat_id=call.message.chat.id,
@@ -145,7 +145,7 @@ def callback_handler(bot: TeleBot):
 
         elif callback_data.startswith(
             "st"
-        ):  # Choose station from multiple stations names
+        ):  # Select a station from among multiple station names.
             user_number = callback_data[2:]
             message_text_with_stations = call.message.text.split("\n")
             station = ""

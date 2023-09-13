@@ -6,7 +6,7 @@ import callback_handler
 import command_handler
 import message_handler
 
-# Add bot instance
+# Add a bot instance.
 token = os.getenv("TELEGRAM_BOT_TOKEN")
 
 assert token

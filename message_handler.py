@@ -13,7 +13,7 @@ def message_handler(bot: TeleBot):
         or msg.text.startswith(serialization.TROLLEY_ICON)
     )
     def send_route_image(message: types.Message):
-        assert message.text  # To prevent textless messages
+        assert message.text  # To avoid messages without text.
         bus_label = message.text
         bus_key = serialization.convert_label_to_bus_key(bus_label)
         route_info = serialization.get_bus_straight_route_info(bus_key)
@@ -36,7 +36,7 @@ def message_handler(bot: TeleBot):
 
     @bot.message_handler(func=lambda msg: True)
     def send_bus_station_transport(message):
-        # Try to find bus station name in json oject
+        # Attempt to locate the bus station name within the JSON object.
         possible_results = []
         user_text = message.text.upper()
 
@@ -44,7 +44,7 @@ def message_handler(bot: TeleBot):
             if user_text in station:
                 possible_results.append(station)
 
-        # If can't find anything - return message
+        # If unable to find anything, return a message.
         if not possible_results:
             bot.reply_to(message, "Увы, не удалось найти такой остановки.")
 
@@ -67,7 +67,7 @@ def message_handler(bot: TeleBot):
             )
 
         elif len(possible_results) > 1:
-            # Choose station
+            # Select a station.
             msg = "<b>Выберите остановку:</b>\n"
             for number, name in enumerate(possible_results):
                 msg += f"{number+1}. {name}\n"

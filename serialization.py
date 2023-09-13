@@ -6,11 +6,11 @@ import re
 from typing import Dict, List, Optional
 
 # CONSTANTS
-# Get bus json object
+# Retrieve the JSON object for the bus.
 with open("./serialized/bus.json", "r") as file:
     BUS_JSON: dict = json.load(file)
 
-# Get station json object
+# Retrieve the JSON object for the stations.
 with open("./serialized/station.json", "r") as file:
     STATION_JSON: dict = json.load(file)
 
@@ -23,9 +23,10 @@ REVERSE_ICON = "⇦"
 DATA STRUCTURE
 
 IMAGES:
-./serialized/images - Images for routes. 
-/routes - Straight routes images, filenames like in BUS_JSON.keys()
-/reverse_routes - Reverse routes images, filenames like in BUS_JSON.keys()
+./serialized/images - Images representing various routes. 
+/routes - Images for the straight routes, where the filenames correspond to the keys in BUS_JSON.
+/reverse_routes - Images for the reverse routes, where the filenames correspond to the keys in BUS_JSON.
+
 
 BUS_JSON:
 keys like 10a, t10 - for trolley
@@ -45,9 +46,11 @@ bus_number like BUS_JSON.keys()
  "station_name" : ...
 }
 
-Here - bus_number - Visit station on forward and baskward
-	bus_number_r - Visit station only on reverse route
-	bus_number_f - Visit station only on straight route
+In this context:
+
+    bus_number corresponds to visiting the station on both the forward and backward routes.
+    bus_number_r indicates visiting the station solely on the reverse route.
+    bus_number_f signifies visiting the station exclusively on the straight route.
 	
 """
 
@@ -120,7 +123,7 @@ def convert_bus_key_to_label(bus_key: str) -> str:
 
 def convert_label_to_bus_key(label: str) -> str:
     """
-    Works fine for route bus labels and simple bus labels
+    for both route bus labels and straightforward bus labels.
     """
     bus_key = label.split(" ")[-1]
     if label.startswith(TROLLEY_ICON):
@@ -153,8 +156,9 @@ def convert_station_json_bus_to_bus_key(station_json_bus: str) -> str:
 
 def get_station_json_bus_info(station_json_bus: str) -> Dict[str, str]:
     """
-    Get transport_name like in station_json ex: (t10a_r, 44_f, 35, t10)
-    Return dict bus_key - like BUS_JSON.keys() and route type
+    Retrieve the transport_name in the format as seen in the station_json,
+    for instance, t10a_r, 44_f, 35, t10. Then, return a dictionary with
+    keys matching those in BUS_JSON and their respective route types.
     """
     bus_key = convert_station_json_bus_to_bus_key(station_json_bus)
     if "f" in station_json_bus:
@@ -169,8 +173,9 @@ def get_station_json_bus_info(station_json_bus: str) -> Dict[str, str]:
 
 def convert_station_json_bus_info_to_label(station_json_bus: str) -> str:
     """
-    Return list of labels for transport from station_json[station_name] list
-    (convert data like t10A_r or 44_f or 35 to labels)
+    Provide a list of labels for transportation based on the data found in
+    station_json[station_name] list. This involves converting data
+    like t10A_r, 44_f, or 35 into the corresponding labels.
     """
     bus_info = get_station_json_bus_info(station_json_bus)
     if station_json_bus.startswith("t"):
