@@ -21,5 +21,3 @@ logger_bot = logging.getLogger("telegram_bot")
 logger_bot.setLevel(logging.DEBUG)
 logger_bot.addHandler(console_handler)  # Send logs to console
 logger_bot.addHandler(file_handler)  # Send logs to file
-
-
