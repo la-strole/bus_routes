@@ -37,7 +37,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ca-certificates curl
           curl -sSL https://install.python-poetry.org | python3 -
-          ~/.local/share/pypoetry/venv/bin/poetry install --without dev --no-root
+          ~/.local/share/pypoetry/venv/bin/poetry install --no-root
       - name: Analysing the code with pylint
         run: |
           ~/.local/share/pypoetry/venv/bin/poetry run pylint $(git ls-files '*.py')
