@@ -145,7 +145,7 @@ def callback_handler(bot: TeleBot):
 
         elif callback_data.startswith(
             "st"
-        ):  # Select a station from among multiple station names.
+        ):  # Select a station from among multiple station  names.
             user_number = callback_data[2:]
             message_text_with_stations = call.message.text.split("\n")
             station = ""
