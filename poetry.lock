@@ -167,6 +167,7 @@ tests-mypy = ["mypy (>=1.11.1)", "pytest-mypy-plugins"]
 [[package]]
 name = "certifi"
 version = "2025.8.3"
+
 description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.7"
